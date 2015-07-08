@@ -125,7 +125,7 @@ var flux = {
 	item_delete: function(item_id){
 
 		// delete from canvas
-		$('#'+item_id).parent().remove();
+		$('#'+item_id).remove();
 
 		// delete from flux local data
 		flux.site.data.items.forEach(function(item, index){
@@ -174,7 +174,7 @@ var flux = {
 			$.contextMenu({
 				selector: '.editable',
 				callback: function(key, opt) {
-					var item_id = this.find('.item').attr('id');
+					var item_id = this.attr('id');
 
 					switch(key){
 						case "delete":
