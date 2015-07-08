@@ -6,6 +6,13 @@ Powered by Node.js + Mongodb + Polymer
 
 # Usage
 
+Setup pre-requisite
+```
+npm install
+bower install
+```
+
+Run
 ```
 node app.js
 ```
