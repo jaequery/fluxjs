@@ -12,8 +12,12 @@ npm install
 bower install
 ```
 
-Run
+Run, by default it runs on port 9099, you can change the port in config/secrets.js.
 ```
 node app.js
 ```
 
+Or if you use docker-compose, you may also just run:
+```
+docker-compose up
+```
