@@ -12,7 +12,7 @@ npm install
 bower install
 ```
 
-Run, by default it runs on port 9099, you can change the port in config/secrets.js.
+Run, this will listen on port 9099 (you may change the port in config/secrets.js)
 ```
 node app.js
 ```
