@@ -1,0 +1,23 @@
+{
+  "name": "public",
+  "version": "0.0.0",
+  "authors": [
+    "jaequery <jaequery@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "jQuery-contextMenu": "~1.6.7",
+    "jquery-colorbox": "~1.6.1",
+    "jquery-ui": "~1.11.4",
+    "jquery": "~2.1.4",
+    "lodash": "^3.7.0"
+  }
+}

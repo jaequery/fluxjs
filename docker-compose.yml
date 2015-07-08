@@ -1,0 +1,25 @@
+mongodb:
+  image: mongo
+  ports:
+  - "27017"
+proxy:
+  image: jwilder/nginx-proxy
+  ports:
+  - "80:80"
+#  - "443:443"
+  volumes:
+#  - processing/ssl/docker/:/etc/nginx/certs
+  - /var/run/docker.sock:/tmp/docker.sock
+app:
+  image: node
+  ports:
+  - "9099"
+  links:
+  - mongodb:mongodb
+  volumes:
+  - .:/data
+  command: node /data/app.js
+  environment:
+    VIRTUAL_HOST: "*.flux.app,flux.app"
+    MONGODB: mongodb://mongodb:27017/flux
+    APP_PORT: 9099
