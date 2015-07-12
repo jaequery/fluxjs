@@ -22,85 +22,83 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // setup mongodb
 mongoose.connect(secrets.mongodb);
 mongoose.connection.on('error', function() {
-    console.error('MongoDB Connection Error. Please make sure that MongoDB is running.',secrets.mongodb);
+  console.error('MongoDB Connection Error. Please make sure that MongoDB is running.',secrets.mongodb);
 });
 mongoose.connection.on('connected', function(){
-    console.log('Connected to MongoDB');
+  console.log('Connected to MongoDB');
 });
 
 // pre-initialize
 app.use(function(req, res, next){
-    main.get_site(req.headers.host, function(site){
-	res.locals.site = site;
-	next();
-    });
+  main.get_site(req.headers.host, function(site){
+    res.locals.site = site;
+    next();
+  });
 });
 
 app.post('/auth', function(req,res){
-    var pass = req.body.pass;
-    var auth = (pass == secrets.password);
+  var pass = req.body.pass;
+  var auth = (pass == secrets.password);
 
-    console.log(pass, auth);
-    res.send(auth);
+  console.log(pass, auth);
+  res.send(auth);
 });
 
 // controllers
 app.get('/api/loader/images', function(req, res){
-    var site = res.locals.site;
-    res.send(site);
+  var site = res.locals.site;
+  res.send(site);
 });
 
 app.get('/api/site', function(req, res){
-    var site = res.locals.site;
-    res.send(site);
+  var site = res.locals.site;
+  res.send(site);
 });
 
 app.post('/api/site', function(req, res){
-    var site = res.locals.site;
-    var post = req.body;
+  var site = res.locals.site;
+  var post = req.body;
 
-    site.data = post.data;
-    site.save(function(err, site){
-	res.send(site);
-    });
+  site.data = post.data;
+  site.save(function(err, site){
+    res.send(site);
+  });
 
 });
 
 app.get('*', function(req, res){
 
-    if(res.locals.site){
+  if(res.locals.site){
 
-	var site = res.locals.site;
+    var site = res.locals.site;
 
-	// get items to draw
-	console.log(site);
+    // get items to draw
+    console.log(site);
 
-	// if site exists
-	var vars = {
-	    site: res.locals.site
-	}
-
-	// render page
-	res.render('page', vars);
-
-    }else{
-
-	// if site doesn't exist, temporarily create a mock site (until registration put in place)
-	var data = {
-	    domain: req.headers.host
-	};
-	var site = new Site(data);
-	site.save(function(err, site){
-	    res.send('site initialized, hit refresh!');
-	});
-	//res.send('sign up');
+    // if site exists
+    var vars = {
+      site: res.locals.site
     }
+
+    // render page
+    res.render('page', vars);
+
+  }else{
+
+    // if site doesn't exist, temporarily create a mock site (until registration put in place)
+    var data = {
+      domain: req.headers.host
+    };
+    var site = new Site(data);
+    site.save(function(err, site){
+      res.send('site initialized, hit refresh!');
+    });
+    //res.send('sign up');
+  }
 
 });
 
-
-
-
+// start the engine, listens on port 9099 by default
 app.listen(secrets.port, function(){
-    console.log('listening on port', secrets.port);
+  console.log('listening on port', secrets.port);
 });

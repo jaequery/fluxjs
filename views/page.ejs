@@ -17,16 +17,22 @@
     <!-- jquery ui -->
     <script src="/bower_components/jquery-ui/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="/bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css">
+    <script src="/bower_components/jquery-ui-rotatable/jquery.ui.rotatable.min.js"></script>
+    <link rel="stylesheet" href="/bower_components/jquery-ui-rotatable/jquery.ui.rotatable.css">
+
+    <!-- rotate -->
+    <script src="/bower_components/jquery.transit/jquery.transit.js"></script>
 
     <!-- plugins -->
     <script src="/bower_components/jQuery-contextMenu/src/jquery.ui.position.js" type="text/javascript"></script>
     <script src="/bower_components/jQuery-contextMenu/src/jquery.contextMenu.js" type="text/javascript"></script>
     <link href="/bower_components/jQuery-contextMenu/src/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
-
     <script src="/bower_components/jquery-colorbox/jquery.colorbox-min.js" type="text/javascript"></script>
     <link href="/bower_components/jquery-colorbox/example1/colorbox.css" rel="stylesheet" type="text/css" />
-
     <script src="/js/jscolor/jscolor.js" type="text/javascript"></script>
+
+    <!-- filepicker -->
+    <script type="text/javascript" src="//api.filepicker.io/v2/filepicker.js"></script>
 
     <!-- main flux library -->
     <script src="/js/flux/flux.js"></script>
@@ -69,39 +75,40 @@
       <button id="edit_mode" class="trig_edit_mode btn btn-warning">Edit Mode</button>
 
       <div id="tools">
-	<a href="#" class="trig_stick btn btn-default" data-type="image">Add image</a>
-	<a href="#" class="trig_tool btn btn-default" data-type="text">Add text</a>
-	<a href="#" class="trig_stick btn btn-default" data-type="video">Add video</a>
-	<a href="#" class="trig_stick btn btn-default" data-type="background">Add background</a>
-	<a href="#" class="trig_save_page btn btn-info">Save page</a>
+        <a href="#" class="trig_stick btn btn-default" data-type="image">Add image</a>
+        <a href="#" class="trig_tool btn btn-default" data-type="text">Add text</a>
+        <a href="#" class="trig_stick btn btn-default" data-type="video">Add video</a>
+        <a href="#" class="trig_stick btn btn-default" data-type="background">Add background</a>
+        <a href="#" class="trig_save_page btn btn-info">Save page</a>
       </div>
 
       <!-- tools type attributes -->
       <div class="clear break"></div>
 
-	<div id="toolbar">
+      <div id="toolbar">
 
-	  <!-- choose text style -->
-	  <div id="tools-text" class="tool">
-	    text:
-	    <input type="text" id="tools-text-content" placeholder="say something">
+        <!-- choose text style -->
+        <div id="tools-text" class="tool">
+          text:
+          <input type="text" id="tools-text-content" placeholder="say something">
 
-	    font:
-	    <select id="tools-text-font">
-	      <option value="arial">arial</option>
-	      <option value="verdana">verdana</option>
-	      <option value="tahoma">tahoma</option>
-	      <option value="tangerine">tangerine</option>
-	    </select>
+          font:
+          <select id="tools-text-font">
+            <option value="arial">arial</option>
+            <option value="verdana">verdana</option>
+            <option value="tahoma">tahoma</option>
+            <option value="tangerine">tangerine</option>
+          </select>
 
-	    size:
-	    <input type="text" id="tools-text-size" value="24">
+          size:
+          <input type="text" id="tools-text-size" value="24">
 
-	    color:
-	    <input id="tools-text-color" class="color" value="000000">
+          color:
+          <input id="tools-text-color" class="color" value="000000">
 
-	    <a href="#" class="trig_stick btn btn-default" data-type="text">Stick</a>
-	  </div>
+          <a href="#" class="trig_stick btn btn-default" data-type="text">Stick</a>
+        </div>
+
 
       </div> <!-- end #toolbar -->
 
