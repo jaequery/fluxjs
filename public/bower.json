@@ -20,6 +20,7 @@
     "jquery": "~2.1.4",
     "lodash": "^3.7.0",
     "jquery-ui-rotatable": "~1.0.1",
-    "jquery.transit": "~0.9.12"
+    "jquery.transit": "~0.9.12",
+    "jquery-modal": "~0.5.5"
   }
 }

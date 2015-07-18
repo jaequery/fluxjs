@@ -38,7 +38,7 @@ var flux = {
     flux.site.data.items.forEach(function(item, index){
 
       // set element
-      var el = $('#'+item.id);
+      var el = $('#item-'+item.id);
 
       // get current position
       var pos = el.position();
@@ -59,16 +59,16 @@ var flux = {
     if(settings.edit_mode){
 
       // get item id
-      var id = el.attr('id');
+      var id = el.data('id');
 
       // get local item index
       var idx = '';
+      console.log(flux.site.data.items);
       flux.site.data.items.forEach(function(item, index){
         if(item.id == id){
           idx = index;
         }
       });
-
 
       // draggable
       el.addClass('editable').draggable();
@@ -78,8 +78,6 @@ var flux = {
 
       // rotatable
       var params = {
-
-        // update item rotate data
         stop: function(event, ui) {
           var angle = ui.angle.stop+'rad';
           flux.site.data.items[idx].rotate = { angle: angle };
@@ -90,15 +88,24 @@ var flux = {
   },
   item_add: function(item){
 
+    // init properties
     var el = '';
     var is_new = false;
 
     // if just placed, give default properties
     if(item.id == undefined){
       is_new = true;
-      item.id = 'item-'+utils.generate_id();
+      item.id = utils.generate_id();
+
+      // set default attach location
+      item.target = '#canvas';
+
+      // set positioning
       item.position = {left: '300', top: '300'};
       item.dimension = {width: '100', height: '100'};
+
+      // set z-index
+      item.zIndex = 1;
 
       // @todo re-do logic for stickables and page settings
       if(item.type != 'background'){
@@ -115,14 +122,14 @@ var flux = {
       // create element depending on type
       switch(item.type){
       case "image":
-        el = $("<div id='"+item.id+"' class='item image'><img src='"+item.src+"'></div>");
+        el = $("<div id='item-"+item.id+"' class='item image'><img src='"+item.src+"'></div>");
         break;
       case "text":
-        el = $("<div id='"+item.id+"' class='item text'><span>"+item.text+"</span></div>");
+        el = $("<div id='item-"+item.id+"' class='item text'><span>"+item.text+"</span></div>");
         el.css(item.attributes);
         break;
       case "video":
-        el = $("<div id='"+item.id+"' class='item video'>"+item.src+"</div>");
+        el = $("<div id='item-"+item.id+"' class='item video'>"+item.src+"</div>");
         el.find('iframe').css({width: '90%', height: '90%'});
         break;
       case "background":
@@ -131,7 +138,11 @@ var flux = {
         break;
       }
 
+      // if element is moveable (image, text, video)
       if(item.stickable){
+
+        // assign data attributes
+        el.data('id', item.id);
 
         // add new class to the element if new
         if(is_new) el.addClass('new');
@@ -149,7 +160,7 @@ var flux = {
         el.css({width: item.dimension.width + 'px', height: item.dimension.height + 'px'});
 
         // draw to canvas
-        $('#canvas').append(el);
+        $(item.target).append(el);
 
         // enable editable functionalities (draggable, resizable) for the element
         flux.make_editable(el);
@@ -161,7 +172,7 @@ var flux = {
   item_delete: function(item_id){
 
     // delete from canvas
-    $('#'+item_id).remove();
+    $('#item-'+item_id).remove();
 
     // delete from flux local data
     flux.site.data.items.forEach(function(item, index){
@@ -206,11 +217,10 @@ var flux = {
       });
 
       // enable contextual (right-click popup)
-      /*
       $.contextMenu({
         selector: '.editable',
         callback: function(key, opt) {
-          var item_id = this.attr('id');
+          var item_id = this.data('id');
 
           switch(key){
           case "delete":
@@ -224,7 +234,6 @@ var flux = {
           "delete": {name: "Delete", icon: "delete"},
         }
       });
-       */
     },
 
     // places element to canvas
@@ -289,6 +298,12 @@ var flux = {
       $('.trig_tool').on('click', function(e){
         var type = $(this).data('type');
         var id = '#tools-'+type;
+        var content = $(id).html();
+        /*
+        $.colorbox({html: content, onComplete: function(){
+          jscolor.init();
+          flux.events.stick();
+        } });*/
         $(id).slideToggle();
       });
     },
